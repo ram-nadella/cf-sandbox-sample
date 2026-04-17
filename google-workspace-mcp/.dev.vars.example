@@ -1,0 +1,11 @@
+# Copy to .dev.vars for local dev. For production, use: wrangler secret put <NAME>.
+
+# OAuth 2.0 Web application credentials from Google Cloud Console.
+GOOGLE_OAUTH_CLIENT_ID=""
+GOOGLE_OAUTH_CLIENT_SECRET=""
+
+# Public HTTPS URL the MCP server sees itself as, used by workspace-mcp to
+# build the OAuth redirect URI. On first run leave empty, POST /start to
+# obtain the preview URL, then set this and redeploy (or set via
+# `wrangler secret put`) and register `<url>/oauth2callback` in Google Cloud.
+WORKSPACE_EXTERNAL_URL=""

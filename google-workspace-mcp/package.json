@@ -1,0 +1,20 @@
+{
+  "name": "google-workspace-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Self-hosted Google Workspace MCP server running in a Cloudflare Sandbox",
+  "scripts": {
+    "dev": "MINIFLARE_CONTAINER_EGRESS_IMAGE=cloudflare/proxy-everything:3cb1195@sha256:78c7910f4575a511d928d7824b1cbcaec6b7c4bf4dbb3fafaeeae3104030e73c wrangler dev",
+    "deploy": "wrangler deploy",
+    "types": "wrangler types",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@cloudflare/sandbox": "^0.8.11"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.0.0"
+  }
+}
