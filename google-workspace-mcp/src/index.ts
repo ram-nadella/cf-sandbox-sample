@@ -1,6 +1,8 @@
-import { getSandbox, parseSSEStream, type ExecEvent } from "@cloudflare/sandbox";
+import { getSandbox, parseSSEStream, Sandbox, type ExecEvent } from "@cloudflare/sandbox";
 
-export { Sandbox } from "@cloudflare/sandbox";
+export class GoogleWorkspaceMCPSandbox extends Sandbox {
+  sleepAfter = "5m";
+}
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -9,7 +11,7 @@ export default {
     // use an ID that represents user + agent session so that a new sandbox is not needed for each call
     // TODO: fix this, for demo purposes accept a MCP session ID param for sandbox identification, verify token
     const sessionId = request.headers.get("Mcp-Session-Id");
-    const sandbox = getSandbox(env.Sandbox, `workspace-mcp-sandbox-${sessionId}`);
+    const sandbox = getSandbox(env.GoogleWorkspaceMCPSandbox, `workspace-mcp-sandbox-${sessionId}`);
 
     const mcpServer = await sandbox.startProcess(
       "uvx workspace-mcp --transport streamable-http --tools gmail drive calendar",

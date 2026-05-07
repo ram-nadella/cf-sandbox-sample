@@ -13,7 +13,7 @@
   },
   "containers": [
     {
-      "class_name": "Sandbox",
+      "class_name": "GoogleWorkspaceMCPSandbox",
       "image": "./Dockerfile",
       "instance_type": "basic",
       "max_instances": 10,
@@ -22,14 +22,14 @@
   "durable_objects": {
     "bindings": [
       {
-        "class_name": "Sandbox",
-        "name": "Sandbox",
+        "class_name": "GoogleWorkspaceMCPSandbox",
+        "name": "GoogleWorkspaceMCPSandbox",
       },
     ],
   },
   "migrations": [
     {
-      "new_sqlite_classes": ["Sandbox"],
+      "new_sqlite_classes": ["GoogleWorkspaceMCPSandbox"],
       "tag": "v1",
     },
   ],
