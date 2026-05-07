@@ -1,40 +1,65 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "google-workspace-mcp",
-  "main": "src/worker.ts",
-  "compatibility_date": "2025-04-01",
+  "name": "from-template",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-06",
   "compatibility_flags": ["nodejs_compat"],
-
-  // Container built from our Dockerfile, which extends
-  // docker.io/cloudflare/sandbox:0.8.11-python with uv + workspace-mcp installed.
+  "observability": {
+    "enabled": true,
+  },
   "containers": [
     {
-      "class_name": "WorkspaceMcpSandbox",
+      "class_name": "Sandbox",
       "image": "./Dockerfile",
-      "instance_type": "basic",
-      "max_instances": 1
-    }
+      "instance_type": "lite",
+      "max_instances": 1,
+    },
   ],
-
   "durable_objects": {
     "bindings": [
       {
-        "class_name": "WorkspaceMcpSandbox",
-        "name": "WorkspaceMcpSandbox"
-      }
-    ]
+        "class_name": "Sandbox",
+        "name": "Sandbox",
+      },
+    ],
   },
-
   "migrations": [
     {
+      "new_sqlite_classes": ["Sandbox"],
       "tag": "v1",
-      "new_sqlite_classes": ["WorkspaceMcpSandbox"]
-    }
+    },
   ],
-
-  // `wrangler secret put` these before deploy:
-  //   GOOGLE_OAUTH_CLIENT_ID
-  //   GOOGLE_OAUTH_CLIENT_SECRET
-  //   WORKSPACE_EXTERNAL_URL   (the preview URL, once known)
-  "vars": {}
+  "upload_source_maps": true,
+  /**
+   * Smart Placement
+   * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
+   */
+  // "placement": {  "mode": "smart" }
+  /**
+   * Bindings
+   * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
+   * databases, object storage, AI inference, real-time communication and more.
+   * https://developers.cloudflare.com/workers/runtime-apis/bindings/
+   */
+  /**
+   * Environment Variables
+   * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
+   * Note: Use secrets to store sensitive data.
+   * https://developers.cloudflare.com/workers/configuration/secrets/
+   */
+  // "vars": {  "MY_VARIABLE": "production_value" }
+  /**
+   * Static Assets
+   * https://developers.cloudflare.com/workers/static-assets/binding/
+   */
+  // "assets": {  "directory": "./public/",  "binding": "ASSETS" }
+  /**
+   * Service Bindings (communicate between multiple Workers)
+   * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
+   */
+  // "services": [  {   "binding": "MY_SERVICE",   "service": "my-service"  } ]
 }
