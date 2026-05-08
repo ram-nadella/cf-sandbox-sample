@@ -9,11 +9,5 @@ ENV WORKSPACE_MCP_PORT=8000 \
     WORKSPACE_MCP_HOST=0.0.0.0 \
     WORKSPACE_MCP_STATELESS_MODE=true \
     MCP_ENABLE_OAUTH21=true
-    # GOOGLE_OAUTH_CLIENT_ID=placeholder.apps.googleusercontent.com \
-    # GOOGLE_OAUTH_CLIENT_SECRET=placeholder
-
-# COPY entrypoint.sh /entrypoint.sh
-# RUN chmod +x /entrypoint.sh
 
 EXPOSE 8000
-# ENTRYPOINT ["/entrypoint.sh"]
